@@ -31,9 +31,9 @@ export async function POST(request: NextRequest) {
         source: "lifeforgetrading.com",
         subscribedAt: new Date().toISOString()
       })
-    });
+    }).catch(() => null);
 
-    if (!response.ok) {
+    if (!response?.ok) {
       return NextResponse.json(
         { message: "The list is unavailable right now. Try again soon." },
         { status: 502 }
@@ -43,6 +43,13 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       message: "You're on the list. Thanks for joining."
     });
+  }
+
+  if (process.env.NODE_ENV === "production") {
+    return NextResponse.json(
+      { message: "Email capture is not configured yet." },
+      { status: 503 }
+    );
   }
 
   const filePath = join(process.cwd(), "data", "subscribers.csv");
