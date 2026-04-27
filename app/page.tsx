@@ -1,4 +1,4 @@
-import { SubscribeForm } from "./subscribe-form";
+import Script from "next/script";
 
 export default function Home() {
   return (
@@ -17,7 +17,14 @@ export default function Home() {
             protects your capital.
           </p>
 
-          <SubscribeForm />
+          <div className="kit-form-shell">
+            <Script
+              async
+              data-uid="d6b92e6422"
+              src="https://lifeforgetrading.kit.com/d6b92e6422/index.js"
+              strategy="afterInteractive"
+            />
+          </div>
 
           <div className="book-cta">
             <p>Want the full system?</p>

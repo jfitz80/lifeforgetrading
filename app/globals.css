@@ -71,8 +71,13 @@ h1 {
   line-height: 1.6;
 }
 
+.kit-form-shell,
 .subscribe-form {
   margin: 0 auto 20px;
+}
+
+.kit-form-shell {
+  min-height: 82px;
 }
 
 .subscribe-form label {
