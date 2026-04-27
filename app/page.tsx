@@ -1,4 +1,4 @@
-import Script from "next/script";
+import { KitForm } from "./kit-form";
 
 export default function Home() {
   return (
@@ -17,14 +17,7 @@ export default function Home() {
             protects your capital.
           </p>
 
-          <div className="kit-form-shell">
-            <Script
-              async
-              data-uid="d6b92e6422"
-              src="https://lifeforgetrading.kit.com/d6b92e6422/index.js"
-              strategy="afterInteractive"
-            />
-          </div>
+          <KitForm />
 
           <div className="book-cta">
             <p>Want the full system?</p>
