@@ -1,4 +1,4 @@
-import { KitForm } from "./kit-form";
+import { SubscribeForm } from "./subscribe-form";
 
 export default function Home() {
   return (
@@ -17,7 +17,7 @@ export default function Home() {
             protects your capital.
           </p>
 
-          <KitForm />
+          <SubscribeForm />
 
           <div className="book-cta">
             <p>Want the full system?</p>
