@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "NEXT_TEST_WASM_DIR=node_modules/@next/swc-wasm-nodejs next dev --webpack",
     "build": "NEXT_TEST_WASM_DIR=node_modules/@next/swc-wasm-nodejs next build --webpack",
+    "generate:checklist": "node scripts/generate-checklist-pdf.mjs",
     "start": "next start",
     "lint": "next lint"
   },
