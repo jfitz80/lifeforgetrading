@@ -35,7 +35,7 @@ export function SubscribeForm() {
 
   return (
     <form className="subscribe-form" onSubmit={handleSubmit}>
-      <label htmlFor="email">Get updates when the book launches</label>
+      <label htmlFor="email">Get the free checklist</label>
       <div className="form-row">
         <input
           id="email"
@@ -43,17 +43,17 @@ export function SubscribeForm() {
           type="email"
           autoComplete="email"
           inputMode="email"
-          placeholder="you@example.com"
+          placeholder="Enter your email"
           value={email}
           onChange={(event) => setEmail(event.target.value)}
           required
         />
         <button type="submit" disabled={state === "loading"}>
-          {state === "loading" ? "Joining" : "Join the list"}
+          {state === "loading" ? "Sending" : "Get Checklist"}
         </button>
       </div>
       <p className={`form-message ${state === "error" ? "error" : ""}`}>
-        {message || "No spam. Just book updates and practical trading notes."}
+        {message || "No spam. Just the checklist and practical trading notes."}
       </p>
     </form>
   );
