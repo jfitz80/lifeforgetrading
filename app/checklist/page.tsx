@@ -157,7 +157,9 @@ export default function ChecklistPage() {
             <a className={styles.ctaButton} href={amazonBookLink}>
               Get the LifeForge Book
             </a>
-            <p className={styles.placeholder}>{amazonBookLink}</p>
+            <a className={styles.placeholder} href={amazonBookLink}>
+              {amazonBookLink}
+            </a>
             <Footer />
           </div>
         </section>

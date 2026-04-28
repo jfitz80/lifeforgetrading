@@ -32,6 +32,10 @@ function esc(text) {
   return String(text).replace(/\\/g, "\\\\").replace(/\(/g, "\\(").replace(/\)/g, "\\)");
 }
 
+function linkAnnotation(uri, [x1, y1, x2, y2]) {
+  return `<< /Type /Annot /Subtype /Link /Rect [${x1} ${y1} ${x2} ${y2}] /Border [0 0 0] /A << /S /URI /URI (${esc(uri)}) >> >>`;
+}
+
 function text(line, x, y, size = 14, font = "F1", color = white) {
   return `BT /${font} ${size} Tf ${color} rg ${x} ${y} Td (${esc(line)}) Tj ET\n`;
 }
@@ -92,7 +96,10 @@ function footer() {
 }
 
 function page(content) {
-  return fillRect(0, 0, width, height) + content;
+  return {
+    annotations: [],
+    content: fillRect(0, 0, width, height) + content
+  };
 }
 
 function coverPage() {
@@ -159,16 +166,25 @@ function ctaPage() {
     17,
     27
   );
-  return page(
+  const urlLines = wrap(amazonBookLink, 72);
+  const urlY = 268;
+
+  return {
+    annotations: [
+      linkAnnotation(amazonBookLink, [margin, 300, margin + 210, 348]),
+      linkAnnotation(amazonBookLink, [margin, urlY - 5, width - margin, urlY + 14])
+    ],
+    content: page(
     brand() +
       text("Want the", margin, 585, 40, "F2") +
       text("Full System?", margin, 541, 40, "F2") +
       body.out +
       rect(margin, 300, 210, 48, white, 1.2) +
       text("Get the LifeForge Book", margin + 19, 318, 15, "F2") +
-      text(amazonBookLink, margin, 268, 12, "F1", muted) +
+        urlLines.map((urlLine, index) => text(urlLine, margin, urlY - index * 16, 12, "F1", muted)).join("") +
       footer()
-  );
+    ).content
+  };
 }
 
 const pages = [
@@ -194,8 +210,12 @@ const boldFontRef = addObject("<< /Type /Font /Subtype /Type1 /BaseFont /Helveti
 
 const pageRefs = [];
 for (const content of pages) {
-  const contentRef = addObject(`<< /Length ${Buffer.byteLength(content)} >>\nstream\n${content}endstream`);
-  const pageRef = addObject(`<< /Type /Page /Parent ${pagesRef} 0 R /MediaBox [0 0 ${width} ${height}] /Resources << /Font << /F1 ${fontRef} 0 R /F2 ${boldFontRef} 0 R >> >> /Contents ${contentRef} 0 R >>`);
+  const contentRef = addObject(`<< /Length ${Buffer.byteLength(content.content)} >>\nstream\n${content.content}endstream`);
+  const annotationRefs = content.annotations.map((annotation) => addObject(annotation));
+  const annots = annotationRefs.length
+    ? ` /Annots [${annotationRefs.map((ref) => `${ref} 0 R`).join(" ")}]`
+    : "";
+  const pageRef = addObject(`<< /Type /Page /Parent ${pagesRef} 0 R /MediaBox [0 0 ${width} ${height}] /Resources << /Font << /F1 ${fontRef} 0 R /F2 ${boldFontRef} 0 R >> >> /Contents ${contentRef} 0 R${annots} >>`);
   pageRefs.push(pageRef);
 }
 
