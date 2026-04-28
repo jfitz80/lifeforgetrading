@@ -8,7 +8,8 @@ export const metadata: Metadata = {
 
 const brandName = "LifeForge";
 // Update this when the final Amazon or store URL changes.
-const amazonBookLink = "[Amazon book link here]";
+const amazonBookLink =
+  "https://www.amazon.ca/Traders-Operating-System-Practical-Discipline/dp/B0GXL4SFBR";
 
 const rules = [
   {

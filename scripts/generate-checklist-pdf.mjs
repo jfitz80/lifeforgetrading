@@ -12,7 +12,8 @@ const gray = "0.2 0.2 0.2";
 
 // Update these brand constants when the offer or Amazon link changes.
 const brandName = "LifeForge";
-const amazonBookLink = "[Amazon book link here]";
+const amazonBookLink =
+  "https://www.amazon.ca/Traders-Operating-System-Practical-Discipline/dp/B0GXL4SFBR";
 
 const rules = [
   ["Define Your Risk First", "I know exactly how much I am willing to lose."],
